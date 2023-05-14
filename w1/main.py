@@ -44,7 +44,17 @@ def revenue_per_region(dp: DataProcessor) -> Dict:
     }
     """
     ######################################## YOUR CODE HERE ##################################################
+    dr = (row for row in dp.data_reader)
 
+    _ = next(dr)
+
+    from collections import defaultdict
+    result = defaultdict(lambda: 0)
+    for row in dr:
+        total_price = row['TotalPrice']
+        result[row['Country']] += dp.to_float(total_price)
+
+    return result
     ######################################## YOUR CODE HERE ##################################################
 
 
