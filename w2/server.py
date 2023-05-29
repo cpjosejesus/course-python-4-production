@@ -42,7 +42,7 @@ async def get() -> Dict:
     """
 
     ######################################## YOUR CODE HERE ##################################################
-
+    return {"status": "ok"}
     ######################################## YOUR CODE HERE ##################################################
 
 
@@ -53,9 +53,10 @@ async def get() -> HTMLResponse:
     should render the HTML file - index.html when a user goes to http://127.0.0.1:8000/
     """
     ######################################## YOUR CODE HERE ##################################################
-
+    with open("index.html", 'r') as f:
+        html_file = f.read()
     ######################################## YOUR CODE HERE ##################################################
-
+    return HTMLResponse(html_file)
 
 # Below endpoint to get the initial data
 @app.get("/processes")
@@ -64,5 +65,7 @@ async def get() -> List[ProcessStatus]:
     Get all the records from the process table and return it using the pydantic model ProcessStatus
     """
     ######################################## YOUR CODE HERE ##################################################
-
+    db = DB()
+    records = db.read_all()
+    return [ProcessStatus(**i) for i in records]
     ######################################## YOUR CODE HERE ##################################################
